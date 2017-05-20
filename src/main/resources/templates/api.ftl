@@ -402,8 +402,8 @@ ${h.name()}: ...
       </span>
 </a>
 <div class="tocify-wrapper">
-    [#if cfg.logo?has_content]
-        <img src="${cfg.logo}" />
+    [#if cfg.logoFileName?has_content]
+        <img src="${cfg.logoFileName}" />
     [#else]
         <h3>API Docs</h3>
     [/#if]

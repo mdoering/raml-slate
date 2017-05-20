@@ -31,7 +31,6 @@ public class HtmlGenerator {
             "slate.woff",
             "slate.woff2",
             "navbar.png",
-            "col-logo.png",
             "slate.js",
             "highlight.pack.js"
     );
@@ -87,9 +86,15 @@ public class HtmlGenerator {
         for (String ass : assets) {
             exportAsset(ass, ass);
         }
+
         // copy highlight asset
         exportAsset("highlight/" + cfg.highlightCss+".css", "highlight.css");
 
+        // copy logo
+        if (cfg.logo != null) {
+            LOG.debug("Copy logo {} to assets", cfg.logo.getAbsoluteFile());
+            FileUtils.copyFile(cfg.logo, new File(cfg.out, cfg.logo.getName()));
+        }
     }
 
     /**

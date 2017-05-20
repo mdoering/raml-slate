@@ -1,12 +1,11 @@
 package de.mdoering.raml;
 
 import com.beust.jcommander.Parameter;
-import com.google.common.collect.Sets;
+import com.google.common.collect.Lists;
 
 import java.io.File;
-import java.net.URI;
+import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 /**
  * API html rendering configurations
@@ -20,10 +19,10 @@ public class ApiConfig {
     public File out = new File("out");
 
     @Parameter(names = { "-t", "-excludedTypes" }, description = "List of global type declarations that should be ignored. Useful for exluding \"abstract\" base types")
-    public Set<String> excludedTypes = Sets.newHashSet("Versioned", "Created", "ResultSet");
+    public List<String> excludedTypes = Lists.newArrayList();
 
     @Parameter(names = { "-logo"}, description = "Logo URL")
-    public URI logo = URI.create("col-logo.png");
+    public File logo;
 
     @Parameter(names = { "-locale" }, description = "Locale to be used for rendering")
     public Locale locale = Locale.getDefault();
@@ -34,7 +33,7 @@ public class ApiConfig {
     public ApiConfig() {
     }
 
-    public Set<String> getExcludedTypes() {
+    public List<String> getExcludedTypes() {
         return excludedTypes;
     }
 
@@ -42,8 +41,8 @@ public class ApiConfig {
         return excludedTypes.contains(type);
     }
 
-    public URI getLogo() {
-        return logo;
+    public String getLogoFileName() {
+        return logo == null ? null : logo.getName();
     }
 
     public String getRamlFilename() {
