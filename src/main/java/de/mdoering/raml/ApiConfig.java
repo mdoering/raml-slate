@@ -31,7 +31,6 @@ public class ApiConfig {
     @Parameter(names = { "-css" }, description = "css style from highlightjs to render examples")
     public String highlightCss = "gruvbox-dark";
 
-
     public ApiConfig() {
     }
 
@@ -47,4 +46,7 @@ public class ApiConfig {
         return logo;
     }
 
+    public String getRamlFilename() {
+        return raml.getName();
+    }
 }

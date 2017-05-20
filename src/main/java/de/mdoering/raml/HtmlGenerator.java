@@ -7,6 +7,8 @@ import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,13 +68,18 @@ public class HtmlGenerator {
     }
 
     private void render() throws IOException, RamlValidationException, TemplateException {
+        final String ramlName = FilenameUtils.removeExtension(cfg.raml.getName());
+
         ApiView view = ApiView.create(cfg);
         final Template template = freemarker.getTemplate("api.ftl", cfg.locale, CHARSET);
 
-        File html = new File(cfg.out, "api.html");
+        File html = new File(cfg.out, ramlName+".html");
         try (Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(html), CHARSET))){
             template.process(view, out);
         }
+
+        // copy RAML file
+        FileUtils.copyFile(cfg.raml, new File(cfg.out, ramlName+".raml"));
     }
 
     private void exportAssets() throws Exception {
