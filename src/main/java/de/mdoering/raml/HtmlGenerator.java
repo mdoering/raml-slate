@@ -77,8 +77,10 @@ public class HtmlGenerator {
             template.process(view, out);
         }
 
-        // copy RAML file
-        FileUtils.copyFile(cfg.raml, new File(cfg.out, ramlName+".raml"));
+        // copy RAML file?
+        if (cfg.copyRamlFile) {
+            FileUtils.copyFile(cfg.raml, new File(cfg.out, ramlName+".raml"));
+        }
     }
 
     private void exportAssets() throws Exception {

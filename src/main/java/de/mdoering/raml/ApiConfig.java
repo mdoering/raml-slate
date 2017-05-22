@@ -30,6 +30,9 @@ public class ApiConfig {
     @Parameter(names = { "-css" }, description = "css style from highlightjs to render examples")
     public String highlightCss = "gruvbox-dark";
 
+    @Parameter(names = { "-copy-raml" }, description = "if true copies the RAML source file into the output folder")
+    public boolean copyRamlFile = false;
+
     public ApiConfig() {
     }
 

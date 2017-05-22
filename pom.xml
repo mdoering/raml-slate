@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.mdoering</groupId>
-    <artifactId>free-raml</artifactId>
+    <artifactId>raml-slate</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>RAML slate-sass HTML generator</name>
     <description>A slate-sass based static html generator for RAML 1.0 API specifications</description>
