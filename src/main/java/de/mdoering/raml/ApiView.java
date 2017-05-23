@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.core.Response.Status;
+import java.io.FileNotFoundException;
 import java.net.URI;
 import java.util.Map;
 
@@ -19,7 +20,10 @@ public class ApiView {
     private final ApiConfig cfg;
     private final URI baseUri;
 
-    public static ApiView create(ApiConfig cfg) throws RamlValidationException {
+    public static ApiView create(ApiConfig cfg) throws RamlValidationException, FileNotFoundException {
+        if (!cfg.raml.exists()) {
+            throw new FileNotFoundException(cfg.raml.getAbsolutePath());
+        }
         LOG.info("Render RAML file {}", cfg.raml.getAbsoluteFile());
         RamlModelResult result = new RamlModelBuilder().buildApi(cfg.raml);
 

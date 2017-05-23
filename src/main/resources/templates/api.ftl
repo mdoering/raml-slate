@@ -195,13 +195,9 @@ ${h.name()}: ...
     [#assign isMethod=op.method??]
 
     [#if isMethod]
-        [@para op.description /]
-    [/#if]
-
-    [#if isMethod]
         [@requestExample op/]
-        <h3>Request</h3>
-        <p><code class="prettyprint">${op.method()?upper_case} [@fullpath op/]</code></p>
+        <h3><code class="prettyprint">${op.method()?upper_case}</code> [@fullpath op/]</h3>
+        [@para op.description /]
     [/#if]
 
     [#if op.headers()?has_content]
@@ -283,12 +279,16 @@ ${h.name()}: ...
 
 [#macro resource res]
     [#global resId += 1]
-    <h1 id="resource-${resId}">${res.resourcePath()}</h1>
+
+    [#if res.parentResource()??]
+        <h2 id="resource-${resId}">${res.resourcePath()}</h2>
+    [#else]
+        <h1 id="resource-${resId}">${res.resourcePath()}</h1>
+    [/#if]
 
     [@para res.description /]
 
     [#list res.methods() as action]
-        <h2 id="res-${resId}-${action.method()}">${action.method()?upper_case} ${res.displayName()}</h2>
         [@method action/]
     [/#list]
 
@@ -302,7 +302,7 @@ ${h.name()}: ...
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>${model.title()} (v${model.version()}</title>
+    <title>${model.title()} (${model.version()}</title>
     <link href="screen.css" rel="stylesheet" media="screen" />
     <link href="print.css" rel="stylesheet" media="print" />
     [#-- json highlighting --]
@@ -423,7 +423,7 @@ ${h.name()}: ...
 
     <div class="content">
 
-        <h1 id="introduction">${model.title()} (v${model.version()})</h1>
+        <h1 id="introduction">${model.title()} (${model.version()})</h1>
         <h3><code>${model.baseUri()}</code></h3>
 
         [@para model.description /]
@@ -442,9 +442,13 @@ ${h.name()}: ...
 
                     [@example typ /]
 
+                    [#if typ.enumValues?? && typ.enumValues()?has_content]
+                        <p><strong>Enumeration</strong>: [#list typ.enumValues() as e]<em>${e}</em>[#if e_has_next], [/#if][/#list]</p>
+                    [/#if]
+
                     [@para typ.description /]
 
-                    [#if typ.properties()?has_content]
+                    [#if typ.properties?? && typ.properties()?has_content]
                         <table><thead>
                         <tr>
                             <th>Name</th>

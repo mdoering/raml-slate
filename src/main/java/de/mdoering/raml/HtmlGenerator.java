@@ -70,7 +70,7 @@ public class HtmlGenerator {
         final String ramlName = FilenameUtils.removeExtension(cfg.raml.getName());
 
         ApiView view = ApiView.create(cfg);
-        final Template template = freemarker.getTemplate("api.ftl", cfg.locale, CHARSET);
+        final Template template = freemarker.getTemplate("api.ftl", cfg.getLocale(), CHARSET);
 
         File html = new File(cfg.out, ramlName+".html");
         try (Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(html), CHARSET))){

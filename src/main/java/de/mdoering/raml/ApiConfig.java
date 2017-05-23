@@ -12,25 +12,25 @@ import java.util.Locale;
  */
 public class ApiConfig {
 
-    @Parameter(names = { "-f", "-raml" }, description = "RAML file to render")
+    @Parameter(names = { "-f", "-raml" }, description = "RAML file to render", required = true)
     public File raml;
 
     @Parameter(names = { "-o", "-out" }, description = "Output folder for generated static files")
     public File out = new File("out");
 
-    @Parameter(names = { "-t", "-excludedTypes" }, description = "List of global type declarations that should be ignored. Useful for exluding \"abstract\" base types")
+    @Parameter(names = { "-ex", "-excludeType" }, description = "List of global type declarations that should be ignored. Useful for exluding \"abstract\" base types")
     public List<String> excludedTypes = Lists.newArrayList();
 
-    @Parameter(names = { "-logo"}, description = "Logo URL")
+    @Parameter(names = "-logo", description = "Logo URL")
     public File logo;
 
-    @Parameter(names = { "-locale" }, description = "Locale to be used for rendering")
-    public Locale locale = Locale.getDefault();
+    @Parameter(names = "-lang", description = "Locale language to be used for rendering")
+    public String lang = "en";
 
-    @Parameter(names = { "-css" }, description = "css style from highlightjs to render examples")
+    @Parameter(names = "-css", description = "css style from highlightjs to render examples")
     public String highlightCss = "gruvbox-dark";
 
-    @Parameter(names = { "-copy-raml" }, description = "if true copies the RAML source file into the output folder")
+    @Parameter(names = "-copy-raml", description = "if true copies the RAML source file into the output folder")
     public boolean copyRamlFile = false;
 
     public ApiConfig() {
@@ -50,5 +50,9 @@ public class ApiConfig {
 
     public String getRamlFilename() {
         return raml.getName();
+    }
+
+    public Locale getLocale() {
+        return Locale.forLanguageTag(lang);
     }
 }
