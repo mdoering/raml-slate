@@ -42,7 +42,7 @@ ${model.baseUri()}[#if method.resource?? && method.resource()??]${method.resourc
             [#if ex.structuredValue().isScalar()]
                 [@jsonObj ex.structuredValue().value() isArray pre/]
             [#else]
-                [#if pre]<pre>[/#if]<code class="json">{
+                [#if pre]<pre class="example">[/#if]<code class="json">{
                 [#list ex.structuredValue().properties() as p]
                     "${p.name()}":[#if p.isArray()][${p.values()?join(", ")}][#else]${p.value()}[/#if]
                 [/#list]
@@ -55,7 +55,7 @@ ${model.baseUri()}[#if method.resource?? && method.resource()??]${method.resourc
 [/#macro]
 
 [#macro jsonObj obj isArray pre]
-    [#if pre]<pre>[/#if]<code class="json">[#if isArray][[/#if]${obj}[#if isArray],${obj}][/#if]</code>[#if pre]</pre>[/#if]
+    [#if pre]<pre class="example">[/#if]<code class="json">[#if isArray][[/#if]${obj}[#if isArray],${obj}][/#if]</code>[#if pre]</pre>[/#if]
 [/#macro]
 
 [#macro requestExample method]
@@ -63,7 +63,7 @@ ${model.baseUri()}[#if method.resource?? && method.resource()??]${method.resourc
     [#if method.body?? && method.body()?has_content]
         [#assign body = method.body()[0] /]
     [/#if]
-    <pre><code class="http">
+    <pre class="example"><code class="http">
 ${method.method()?upper_case} ${baseUri.path}${method.resource().resourcePath()} HTTP/1.1
 Host: ${baseUri.host}
 [#list method.headers() as h]
@@ -110,7 +110,7 @@ Content-Type: ${body.name()}
 [#macro responseExample body resp=""]
     [#-- show content type --]
     [#if resp?has_content]
-<pre><code class="http">
+<pre class="example"><code class="http">
 HTTP/1.1 ${headerCode(resp.code())}
 Date: ${.now?string.full}
 Content-Type: ${body.name()}
@@ -308,8 +308,6 @@ ${h.name()}: ...
     [#-- json highlighting --]
     <link href="highlight.css" rel="stylesheet" >
     <script src="highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-
     <style>
         .clear { clear: both}
         .highlight table td { padding: 5px; }
@@ -392,6 +390,13 @@ ${h.name()}: ...
         }
     </style>
     <script src="slate.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('pre.example code').each(function(i, block) {
+                hljs.highlightBlock(block);
+            });
+        });
+    </script>
 </head>
 
 <body class="index" data-languages="[]">

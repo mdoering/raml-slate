@@ -232,9 +232,9 @@
                     <resources>
                         <resource>
                             <source>
-                                <directory>${project.basedir}/src/main/resources/slate-sass/sass</directory>
+                                <directory>${project.basedir}/src/main/resources/sass</directory>
                             </source>
-                            <destination>${project.build.directory}/assets</destination>
+                            <destination>${project.basedir}/src/main/resources/assets</destination>
                         </resource>
                     </resources>
                 </configuration>

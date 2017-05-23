@@ -334,7 +334,7 @@ html, body {
     clear: both;
   }
 
-  &>h1, &>h2, &>h3, &>h4, &>h5, &>h6, &>p, &>table, &>ul, &>ol, &>aside, &>dl {
+  &>h1, &>h2, &>h3, &>h4, &>h5, &>h6, &>p, &>pre, &>table, &>ul, &>ol, &>aside, &>dl {
     margin-right: $examples-width;
     padding: 0 $main-padding;
     box-sizing: border-box;
@@ -521,7 +521,7 @@ html, body {
 // This is all the stuff that appears in the right half of the page
 
 .content {
-  pre, blockquote {
+  pre.example, blockquote.example {
     background-color: $code-bg;
     color: #fff;
 
@@ -546,11 +546,11 @@ html, body {
     }
   }
 
-  pre {
+  pre.example {
     @extend %code-font;
   }
 
-  blockquote {
+  blockquote.example {
     &>p {
       background-color: $code-annotation-bg;
       border-radius: 5px;
