@@ -3,6 +3,7 @@ package de.mdoering.raml;
 import com.google.common.collect.Maps;
 import org.raml.v2.api.RamlModelBuilder;
 import org.raml.v2.api.RamlModelResult;
+import org.raml.v2.api.loader.FileResourceLoader;
 import org.raml.v2.api.model.v10.api.Api;
 import org.raml.v2.api.model.v10.datamodel.TypeDeclaration;
 import org.slf4j.Logger;
@@ -25,7 +26,7 @@ public class ApiView {
             throw new FileNotFoundException(cfg.raml.getAbsolutePath());
         }
         LOG.info("Render RAML file {}", cfg.raml.getAbsoluteFile());
-        RamlModelResult result = new RamlModelBuilder().buildApi(cfg.raml);
+        RamlModelResult result = new RamlModelBuilder(new FileResourceLoader(".")).buildApi(cfg.raml);
 
         if (result.hasErrors())
             throw new RamlValidationException("RAML specification is invalid.", result.getValidationResults());
