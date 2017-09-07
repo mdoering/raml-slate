@@ -12,6 +12,7 @@ import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.parser.ParserEmulationProfile;
 import com.vladsch.flexmark.util.options.MutableDataSet;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 
@@ -46,7 +47,10 @@ public class MarkdownRenderer {
     }
 
     public String render(String markdown) {
+      if (!StringUtils.isBlank(markdown)) {
         Node document = parser.parse(markdown);
         return renderer.render(document);
+      }
+      return "";
     }
 }

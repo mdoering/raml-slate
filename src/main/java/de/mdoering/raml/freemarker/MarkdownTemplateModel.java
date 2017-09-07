@@ -12,7 +12,7 @@ public class MarkdownTemplateModel implements TemplateScalarModel {
     private String markdown;
 
     public MarkdownTemplateModel(MarkdownString md) {
-        this.markdown=md==null? null : md.value();
+        this.markdown = md == null ? null : md.value();
     }
 
     @Override

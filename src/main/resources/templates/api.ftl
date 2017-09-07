@@ -438,45 +438,83 @@ ${h.name()}: ...
             <p>${item.content()}</p>
         [/#list]
 
+        [#assign vocabs = [] /]
 
         [#if model.types()?has_content]
             <h1 id="model">Data Model</h1>
             [#list model.types() as typ]
                 [#if !cfg.isTypeExcluded(typ.name())]
-                    <h2 id="model-${typ.name()}">${typ.displayName()}</h2>
-
-                    [@example typ /]
-
                     [#if typ.enumValues?? && typ.enumValues()?has_content]
-                        <p><strong>Enumeration</strong>: [#list typ.enumValues() as e]<em>${e}</em>[#if e_has_next], [/#if][/#list]</p>
-                    [/#if]
+                        [#assign vocabs = vocabs + [ {"name":typ.name(), "type":typ} ] /]
+                    [#else]
+                        <h2 id="model-${typ.name()}">${typ.displayName()}</h2>
 
-                    [@para typ.description /]
+                        [@example typ /]
 
-                    [#if typ.properties?? && typ.properties()?has_content]
-                        <table><thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Pattern</th>
-                            <th>Required</th>
-                            <th>Description</th>
-                        </tr>
-                        </thead><tbody>
-                            [#list typ.properties() as p]
+                        [@para typ.description /]
+
+                        [#if typ.properties?? && typ.properties()?has_content]
+                            <table><thead>
                             <tr>
-                                <td>${p.name()!}</td>
-                                <td>[@modelType p/]</td>
-                                <td>[@enumOrPattern p/]</td>
-                                <td>${p.required()!}</td>
-                                <td>${p.description()!}</td>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Pattern</th>
+                                <th>Required</th>
+                                <th>Description</th>
                             </tr>
-                            [/#list]
-                        </tbody></table>
+                            </thead><tbody>
+                                [#list typ.properties() as p]
+                                <tr>
+                                    <td>${p.name()!}</td>
+                                    <td>[@modelType p/]</td>
+                                    <td>[@enumOrPattern p/]</td>
+                                    <td>${p.required()!}</td>
+                                    <td>${p.description()!}</td>
+                                </tr>
+                                [/#list]
+                            </tbody></table>
+                        [/#if]
                     [/#if]
                 [/#if]
             [/#list]
         [/#if]
+
+    [#if vocabs?has_content]
+        <h1 id="vocabs">Vocabularies</h1>
+        [#list vocabs?sort_by("name") as t]
+            [#assign typ = t.type /]
+
+            <h2 id="model-${t.type.name()}">${typ.displayName()}</h2>
+
+            [@example typ /]
+
+            <p><strong>Enumeration</strong>: [#list typ.enumValues() as e]<em>${e}</em>[#if e_has_next], [/#if][/#list]</p>
+
+            [@para typ.description /]
+
+            [#if typ.properties?? && typ.properties()?has_content]
+                <table><thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Pattern</th>
+                    <th>Required</th>
+                    <th>Description</th>
+                </tr>
+                </thead><tbody>
+                    [#list typ.properties() as p]
+                    <tr>
+                        <td>${p.name()!}</td>
+                        <td>[@modelType p/]</td>
+                        <td>[@enumOrPattern p/]</td>
+                        <td>${p.required()!}</td>
+                        <td>${p.description()!}</td>
+                    </tr>
+                    [/#list]
+                </tbody></table>
+            [/#if]
+        [/#list]
+    [/#if]
 
         <h1 id="authentication">Authentication</h1>
             [#if model.securedBy()?has_content]
