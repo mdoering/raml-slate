@@ -29,7 +29,7 @@ public class ApiView {
         RamlModelResult result = new RamlModelBuilder(new FileResourceLoader(".")).buildApi(cfg.raml);
 
         if (result.hasErrors())
-            throw new RamlValidationException("RAML specification is invalid.", result.getValidationResults());
+            throw new RamlValidationException(result.getValidationResults());
 
         return new ApiView(result.getApiV10(), cfg);
     };
