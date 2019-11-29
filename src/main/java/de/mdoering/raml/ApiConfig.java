@@ -24,6 +24,9 @@ public class ApiConfig {
     @Parameter(names = "-logo", description = "Logo URL")
     public File logo;
 
+    @Parameter(names = "-title", description = "Logo Title")
+    public String title = "API Docs";
+
     @Parameter(names = "-lang", description = "Locale language to be used for rendering")
     public String lang = "en";
 
@@ -51,7 +54,11 @@ public class ApiConfig {
     public String getRamlFilename() {
         return raml.getName();
     }
-
+    
+    public String getTitle() {
+        return title;
+    }
+    
     public Locale getLocale() {
         return Locale.forLanguageTag(lang);
     }

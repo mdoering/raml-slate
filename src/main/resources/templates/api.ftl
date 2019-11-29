@@ -309,6 +309,17 @@ ${h.name()}: ...
     <link href="highlight.css" rel="stylesheet" >
     <script src="highlight.pack.js"></script>
     <style>
+        .logo {
+            height: 64px;
+            position: relative;
+            line-height: 64px;
+            padding: 0px 0px 0px 24px;
+            overflow: hidden;
+        }    
+        .logo h3 {
+            padding-left: 10px;
+            font-size: x-large;
+        }
         .clear { clear: both}
         .highlight table td { padding: 5px; }
         .highlight table pre { margin: 0; }
@@ -407,12 +418,11 @@ ${h.name()}: ...
       </span>
 </a>
 <div class="tocify-wrapper">
-    [#if cfg.logoFileName?has_content]
-        <img src="${cfg.logoFileName}" />
-    [#else]
-        <h3>API Docs</h3>
-    [/#if]
-    <div class="lang-selector">
+    <div class="logo">
+      [#if cfg.logoFileName?has_content]
+       <img src="${cfg.logoFileName}" style="height: 32px; flex: 0 0 auto; vertical-align:middle">
+      [/#if]
+       <h3 style="color: white; display: inline; vertical-align:middle">${cfg.title!}</h3>
     </div>
     <div class="search">
         <input type="text" class="search" id="input-search" placeholder="Search">

@@ -16,6 +16,6 @@ public class HtmlGeneratorTest {
     @Test
     @Ignore
     public void runLocal() throws Exception {
-        HtmlGenerator.main(new String[] {"-raml", "/Users/markus/code/col+/colplus/docs/api/staging.raml", "-out", "/Users/markus/Desktop/nomen", "-logo", "/Users/markus/code/col+/colplus/logo/col-logo-trans.png", "-excludeType", "DatasetObject", "-excludeType", "ResultSet"} );
+        HtmlGenerator.main(new String[] {"-raml", "/Users/markus/code/col+/colplus/docs/api/staging.raml", "-out", "/Users/markus/Desktop/nomen", "-logo", "/Users/markus/code/col+/colplus/logo/col-logo-trans.png", "-title", "My HOME", "-excludeType", "DatasetObject", "-excludeType", "ResultSet"} );
     }
 }
