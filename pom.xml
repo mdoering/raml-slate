@@ -24,7 +24,7 @@
 
         <!-- Runtime Library Versions -->
         <commons.lang.version>3.6</commons.lang.version>
-        <commons.io.version>2.5</commons.io.version>
+        <commons.io.version>2.7</commons.io.version>
         <raml.parser.version>1.0.15</raml.parser.version>
         <flexmark.version>0.27.0</flexmark.version>
         <freemarker.version>2.3.26-incubating</freemarker.version>
